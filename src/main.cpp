@@ -41,7 +41,7 @@ void setup()
 
   // Neopixel
   strip.begin(); // Initialize NeoPixel strip object (REQUIRED)
-  strip.setBrightness(50);
+  strip.setBrightness(10);
   strip.show();  // Initialize all pixels to 'off'
 
 
@@ -148,5 +148,5 @@ void loop()
 
   }
 
-  delay(5000);
+  delay(10000);
 }
