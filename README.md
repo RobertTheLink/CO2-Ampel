@@ -42,6 +42,7 @@ für die Holzkistenversion:
 
 ## Software
 
-...ist sehr simpel gehalten und kombiniert eigentlich nur den Beispielcode verwendeten Bibliotheken.
-Die Anfangsspielerei, die Regenbogenfarben auf den LEDs zu zeigen, dient dazu, die Zeit bis zum vorliegen der ersten Messwerte visuell zu überbücken.
+Als Softwareentwicklungsumgebung für den Arduino benutze ich [platformio](https://platformio.org/). Damit sollten für das compilieren und flashen der SW alle nötigen Einstellungen und Bibliotheken zum Projekt mitgeliefert sein.
 
+Der Code an sich ist sehr simpel gehalten und kombiniert fast nur den Beispielcode verwendeten Bibliotheken.
+Die Anfangsspielerei, die Regenbogenfarben auf den LEDs zu zeigen dient dazu, die Zeit bis zum vorliegen der ersten Messwerte visuell zu überbücken.
