@@ -22,6 +22,31 @@ void colorWipe(uint32_t color, int wait) {
   }
 }
 
+// Rainbow cycle along whole strip. Pass delay time (in ms) between frames.
+void rainbow(int wait) {
+  // Hue of first pixel runs 5 complete loops through the color wheel.
+  // Color wheel has a range of 65536 but it's OK if we roll over, so
+  // just count from 0 to 5*65536. Adding 256 to firstPixelHue each time
+  // means we'll make 5*65536/256 = 1280 passes through this outer loop:
+  for(long firstPixelHue = 0; firstPixelHue < 5*65536; firstPixelHue += 256) {
+    for(uint16_t i=0; i<strip.numPixels(); i++) { // For each pixel in strip...
+      // Offset pixel hue by an amount to make one full revolution of the
+      // color wheel (range of 65536) along the length of the strip
+      // (strip.numPixels() steps):
+      int pixelHue = firstPixelHue + (i * 65536L / strip.numPixels());
+      // strip.ColorHSV() can take 1 or 3 arguments: a hue (0 to 65535) or
+      // optionally add saturation and value (brightness) (each 0 to 255).
+      // Here we're using just the single-argument hue variant. The result
+      // is passed through strip.gamma32() to provide 'truer' colors
+      // before assigning to each pixel:
+      strip.setPixelColor(i, strip.gamma32(strip.ColorHSV(pixelHue)));
+    }
+    strip.show(); // Update strip with new contents
+    delay(wait);  // Pause for a moment
+  }
+}
+
+
 // CO2 Sensor
 SCD30 airSensor;
 
@@ -75,14 +100,11 @@ void setup()
       ;
 
   }
-  airSensor.setMeasurementInterval(2); //Change number of seconds between measurements: 2 to 1800 (30 minutes)
+  airSensor.setMeasurementInterval(5); //Change number of seconds between measurements: 2 to 1800 (30 minutes)
   airSensor.setAltitudeCompensation(75); //Set altitude of the sensor in m, Ratingen => 75m
   airSensor.setAmbientPressure(950); //Current ambient pressure in mBar: 700 to 1200
 
-  float offset = airSensor.getTemperatureOffset();
-  Serial.print("Current temp offset: ");
-  Serial.print(offset, 2);
-  Serial.println("C");
+  rainbow(10);
 }
 
 /*****************************************************************************/
@@ -103,7 +125,7 @@ void loop()
     co2         = airSensor.getCO2();
     temperature = airSensor.getTemperature();
     humidity    = airSensor.getHumidity();
-/*
+
     Serial.print("co2(ppm):");
     Serial.print(co2);
 
@@ -114,7 +136,7 @@ void loop()
     Serial.print(humidity, 1);
 
     Serial.println();
-*/
+
 /*
    Target values for CO2 in rooms, see EN 13779
       400-800ppm    : good
@@ -138,6 +160,7 @@ void loop()
     else {
       //display.println("l\201ften!");
       colorWipe(strip.Color(255,   0,   0), 10); // Red
+
     }
 
     
