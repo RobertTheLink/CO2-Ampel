@@ -12,7 +12,6 @@ kam als schnelle Lösung nur etwas ohne Funk in Betracht. Denn in unserer Schule
 Deshalb habe ich einen alten Arduino Uno mit einem Sensirion SCD30 und einem 8 Neopixel Streifen kombiniert. Ursprünglich war noch ein kleines 128x32 OLED Display zum Anzeigen des aktuellen CO2 Werts dabei, ist mir aber beim hantieren kaputt gegangen. Und neue Displays aus China dauern... 
 So bleibt es halt bei der Ampel.
 
-![CO2](img/IMG_0433.jpeg)
 ![CO2](img/IMG_0434.jpeg)
 ![CO2](img/IMG_0435.jpeg)
 ![CO2](img/IMG_0432.jpeg)
